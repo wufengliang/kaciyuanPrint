@@ -1,7 +1,7 @@
 /*
  * @Author: wufengliang 44823912@qq.com
  * @Date: 2025-08-08 11:08:02
- * @LastEditTime: 2025-08-09 14:50:52
+ * @LastEditTime: 2025-08-09 15:26:46
  * @Description: 
  */
 const { FusesPlugin } = require('@electron-forge/plugin-fuses');
@@ -19,7 +19,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-zip',
-      platforms: ['darwin','windows','linux'],
+      platforms: ['darwin','win32','linux'],
     },
     {
       name: '@electron-forge/maker-deb',
