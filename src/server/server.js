@@ -1,7 +1,7 @@
 /*
  * @Author: wufengliang 44823912@qq.com
  * @Date: 2025-08-05 17:45:50
- * @LastEditTime: 2025-08-08 17:53:12
+ * @LastEditTime: 2025-08-09 16:56:55
  * @Description: 
  */
 import express from 'express';
@@ -23,7 +23,7 @@ export class AppServer {
         this.app = express()
             .use(express.static('./assets'))
             .use(bodyParser.json())
-            .use(cors())
+            .use(cors({origin:"*"}))
         this.server = http.createServer(this.app);
         this.io = new SocketServer(this.server);
         this.app.listen(process.env.PORT, () => {
