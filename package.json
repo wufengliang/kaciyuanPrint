@@ -1,0 +1,49 @@
+{
+  "name": "kaciyuanprint",
+  "productName": "kaciyuanprint",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": ".vite/build/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "wufengliang",
+    "email": "44823912@qq.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.8.3",
+    "@electron-forge/maker-deb": "^7.8.3",
+    "@electron-forge/maker-rpm": "^7.8.3",
+    "@electron-forge/maker-squirrel": "^7.8.3",
+    "@electron-forge/maker-zip": "^7.8.3",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.8.3",
+    "@electron-forge/plugin-fuses": "^7.8.3",
+    "@electron-forge/plugin-vite": "^7.8.3",
+    "@electron/fuses": "^1.8.0",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/runtime-dom": "^3.5.18",
+    "electron": "37.2.6",
+    "vite": "^5.4.19"
+  },
+  "dependencies": {
+    "bufferutil": "^4.0.9",
+    "chrome-launcher": "^1.2.0",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
+    "electron-squirrel-startup": "^1.0.1",
+    "express": "^5.1.0",
+    "lodash-es": "^4.17.21",
+    "pdf-to-printer": "^5.6.0",
+    "puppeteer-core": "^24.16.0",
+    "socket.io": "^4.8.1",
+    "utf-8-validate": "^6.0.5",
+    "vue": "^3.5.18"
+  }
+}
