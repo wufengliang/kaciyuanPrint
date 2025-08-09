@@ -11,7 +11,7 @@ on:
 jobs:
   # 构建 Windows 版本
   build-windows:
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
       # 检出代码
       - uses: actions/checkout@v4
@@ -36,7 +36,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-build
-          path: out/make/squirrel.windows/x64/*.exe
+          path: out/make/**/*.zip
+      
+      # 发布
+      - name: Publish Release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: out/make/**/*.zip
 
   # 构建 macOS 版本
   build-macos:
@@ -65,4 +72,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: macos-build
-          path: out/make/zip/darwin/x64/*.zip
+          path: out/make/**/*.zip
+
+      # 发布
+      - name: Publish Release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: out/make/**/*.zip
