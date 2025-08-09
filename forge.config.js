@@ -1,3 +1,9 @@
+/*
+ * @Author: wufengliang 44823912@qq.com
+ * @Date: 2025-08-08 11:08:02
+ * @LastEditTime: 2025-08-09 14:50:52
+ * @Description: 
+ */
 const { FusesPlugin } = require('@electron-forge/plugin-fuses');
 const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 
@@ -13,7 +19,7 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-zip',
-      platforms: ['darwin'],
+      platforms: ['darwin','windows','linux'],
     },
     {
       name: '@electron-forge/maker-deb',

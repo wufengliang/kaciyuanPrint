@@ -36,14 +36,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-build
-          path: out/make/**/*.zip
+          path: out/make/*.zip
       
       # 发布
       - name: Publish Release
         uses: softprops/action-gh-release@v1
         with:
           draft: true
-          files: out/make/**/*.zip
+          files: out/make/*.zip
 
   # 构建 macOS 版本
   build-macos:
@@ -80,3 +80,54 @@ jobs:
         with:
           draft: true
           files: out/make/**/*.zip
+
+
+  release:
+    name: 自动发布 Release
+    needs: [build-windows, build-macos]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v3
+
+      # 下载各平台构建产物
+      - name: 下载 Windows 产物
+        uses: actions/download-artifact@v4
+        with:
+          name: win-builds
+          path: artifacts/win
+
+      - name: 下载 macOS 产物
+        uses: actions/download-artifact@v4
+        with:
+          name: mac-builds
+          path: artifacts/mac
+
+      # # 自动生成 Release Notes（使用 tag 相关 commit 信息）
+      # - name: 生成 Release Notes
+      #   id: changelog
+      #   run: |
+      #     TAG_NAME="${GITHUB_REF##refs/tags/}"
+      #     PREV_TAG=$(git tag --sort=-creatordate | grep -B1 "^${TAG_NAME}$" | head -n1)
+      #     if [ -z "$PREV_TAG" ]; then
+      #       git log -1 --pretty=format:"%h %s" "$TAG_NAME" > release_notes.txt
+      #     else
+      #       git log "$PREV_TAG..$TAG_NAME" --pretty=format:"- %h %s" > release_notes.txt
+      #     fi
+      #     echo "release_notes<<EOF" >> $GITHUB_OUTPUT
+      #     cat release_notes.txt >> $GITHUB_OUTPUT
+      #     echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: 发布 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.release_notes }}
+          files: |
+            artifacts/win/**
+            artifacts/mac/**
+            artifacts/linux/**
+          prerelease: ${{ contains(github.ref_name, 'beta') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
